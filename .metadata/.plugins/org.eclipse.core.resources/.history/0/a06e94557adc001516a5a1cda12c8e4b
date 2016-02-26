@@ -1,0 +1,67 @@
+package drawlinedouble;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+
+import javax.swing.*;
+
+public class FrameTestBase extends JFrame {
+
+    public static void main(String args[]) {
+        FrameTestBase t = new FrameTestBase();
+        t.add(new JComponent() {
+            public void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                                    RenderingHints.VALUE_ANTIALIAS_ON);
+                double[] x = new double[]{5.0,2.0,5.0,2.0,5.0,2.0,5.0,4.0,3.0,3.0,2.0,2.0,1.2928932188134523,-0.4959611631863794,-0.04874756768642163,-1.3903883541862951,-1.535533905932738,0.5857864376269046,0.0,-3.2887687665751137,-2.4033310217279675,-8.474904129251257,-3.541750979388585,-4.110960958218892,-5.2,-3.4,-5.2,-2.8,-4.6,-2.2,-1.6,-2.529822128134704,0.3162277660168377,-4.74341649025257,-4.14341649025257,-7.179203044014215,-4.7126264690828785,-10.784199576606166,-5.851046426743496,-5.943416490252571,-3.5434164902525707,-5.343416490252571,-2.943416490252571,-2.846049894151543,-3.794733192202056,-1.897366596101029,-2.846049894151542,0.9486832980505118,-0.9486832980505144,0.9486832980505131,1.0,1.0,2.0,4.4,1.3642134462383542,3.83079002116969,2.6,5.0,3.2,5.6,5.794733192202054,3.8973665961010275,5.794733192202054,4.846049894151541,5.0,2.0};
+                double[] y = new double[]{
+                		-1.0,-1.0,0.0,0.0,1.0,1.0,2.0,2.0,5.0,2.0,5.0,2.0,1.2928932188134525,2.1873204098133687,5.317815578313075,2.634534005313327,2.707106781186548,0.5857864376269051,0.0,2.2768399153212338,5.312626469082878,7.083501958777172,3.6682420857953213,2.846049894151542,3.6,1.2,-1.4,0.4,-2.2,-0.4,-1.2,-1.8973665961010269,-0.9486832980505139,-4.743416490252567,-5.543416490252567,-4.65797874540542,-6.3656086818963455,-4.594733192202051,-8.009993065183902,-8.143416490252566,-6.343416490252568,-8.943416490252567,-7.143416490252568,-7.273238618387271,-4.42718872423573,-6.957010852370434,-4.110960958218892,-9.170605214488301,-3.478505426185216,-2.8460498941515415,-3.0,0.0,-3.0,-6.2,-5.314562255152854,-7.0221921916437795,-8.8,-7.0,-9.6,-7.8,-8.059644256269408,-2.367544467966324,-4.897366596101028,-2.051316701949486,-2.0,-2.0};
+                double[] x1= new double[512];
+                double[] y1= new double[512];
+                double[] x2= new double[512];
+                double[] y2= new double[512];
+                int vertices = 65;//size - 1
+                double multi = 20.0;
+                double multi2 = 2.0;
+                double mover = 10.0;
+                Font myFont = new Font ("Courier New",1,10);
+                
+                for (int i = 0; i < vertices; i++){
+                	 x1[i] = (x[i]+mover) * multi;
+                	 x2[i] = (x[i+1]+mover) * multi;
+                	 y1[i] = (y[i]+mover)  * multi;
+                	 y2[i] = (y[i+1]+mover) * multi;
+                	// y1[i] = (y[i]+mover)  * multi2;
+                	 //y2[i] = (y[i+1]+mover) * multi2;
+                	 
+                	//System.out.println(i);
+                	//System.out.println(x1+","+y1);
+                	Shape l = new Line2D.Double(x1[i],y1[i],x2[i],y2[i]);
+                	//Shape l = new Line2D.Double(1,2,3,4);
+        			g2.setColor(Color.black);
+        	        g2.draw(l);
+        	        g2.fill(l);
+        	        /*Ellipse2D.Double j = new Ellipse2D.Double(x1[i],y1[i], 3, 3);
+                    g2.setColor(Color.black);
+                    g2.fill(j);*/
+        	        g2.setColor(Color.red);
+        	        String str =Integer.toString(i);
+        	        g2.setFont(myFont);
+                    g2.drawString(str, (float)x1[i],(float) y1[i]);
+        		 }
+                
+            }
+        });
+
+        t.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        t.setSize(2000, 2000);
+        t.setVisible(true);
+    }
+}

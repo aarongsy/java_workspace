@@ -1,0 +1,58 @@
+package token;
+
+import java.util.*; 
+import java.io.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class token {
+
+	public static void main(String[] args) {
+      
+		String lineTXT = null;   
+
+		 try {   
+		  String encoding = "GBK"; // 字符编码(可解决中文乱码问题 )   
+		        File file = new File("/Users/mac/Desktop/questionCoo");   
+		         if (file.isFile() && file.exists()) {   
+		          InputStreamReader read = new InputStreamReader(   
+			                    new FileInputStream(file), encoding);   
+		            BufferedReader bufferedReader = new BufferedReader(read);   
+		            while ((lineTXT = bufferedReader.readLine()) != null) {   
+		           System.out.println(lineTXT.toString().trim()); 
+		   		
+		   		String S1= lineTXT.replace(",",""); 	//delete ","
+		   		String S2= S1.replace("(", ""); 	//delete "("
+		   		String S= S2.replace(")", ""); 		//delete ")"
+		   		
+		   		StringTokenizer Token =new StringTokenizer(S); //token
+
+		   		int tokenNum = Token.countTokens();
+		   		
+		   		Double[] x= new Double [300];
+		   		Double[] y= new Double [300];
+		   		
+		   		int i = 0;
+		   		x[i]= 1.1;
+		   		
+		   		for(i=0; i<(tokenNum/2.0);i++){
+		   		x[i] = Double.parseDouble(Token.nextToken());
+		   		y[i] = Double.parseDouble(Token.nextToken());
+
+		   		System.out.println("x[" + i +"] = " + x[i]);
+		   		System.out.println("y[" + i +"] = " + y[i]);
+		   			}
+	                }   
+		               read.close();   
+			          }else{   
+			             System.out.println("找不到指定的文件！");   
+		         }   
+			   } catch (Exception e) {   
+			          System.out.println("读取文件内容操作出错");   
+			          e.printStackTrace();   
+			     }   
+
+
+		 }
+		}
